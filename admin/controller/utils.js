@@ -27,7 +27,7 @@ export class Helper {
 
   clearTextBoxes() {
     this.tbArr.forEach((id) => {
-      getEle(id).value = '';
+      getEle(id).innerHTML = '&#8205;';
     });
   }
 }
