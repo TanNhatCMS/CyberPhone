@@ -1,3 +1,4 @@
+const getEle = (id) => document.getElementById(id);
 export class Validator {
     numRegex = /^[0-9]+$/;
   
