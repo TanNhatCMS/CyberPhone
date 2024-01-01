@@ -27,7 +27,7 @@ export class Helper {
 
   clearTextBoxes() {
     this.tbArr.forEach((id) => {
-      getEle(id).innerHTML = '&#8205;';
+      getEle(id).value = '';
     });
   }
 }
@@ -35,7 +35,6 @@ export class Helper {
 export class CustomModal {
   static alertSuccess(message) {
     return Swal.fire({
-      position: 'top-right',
       icon: 'success',
       title: message,
       showConfirmButton: false,
