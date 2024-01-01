@@ -44,7 +44,8 @@ window.onload = async () => {
 };
 
 getEle('addPhoneForm').onclick = () => {
-  helper.clearTextBoxes();
+  resetForm('formPhone');
+  helper.clearTextBoxes(); 
   getEle('btnUpdate').style.display = 'none';
   getEle('btnAddPhone').style.display = 'inline-block';
 };
@@ -58,7 +59,6 @@ getEle('btnAddPhone').onclick = async () => {
     const phone = new Phone('', ...inputs);
     await service.addPhone(phone);
     await renderList();
-    resetForm('formPhone');
     CustomModal.alertSuccess('Add phone successfully');
   } catch (error) {
     console.error(error);
@@ -79,8 +79,8 @@ window.btnDelete = async (id) => {
 };
 
 window.btnEdit = async (id) => {
+  helper.clearTextBoxes(); 
   try {
-    helper.clearTextBoxes();
     getEle('btnUpdate').style.display = 'inline-block';
     getEle('btnAddPhone').style.display = 'none';
 
