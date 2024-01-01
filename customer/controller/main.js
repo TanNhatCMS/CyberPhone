@@ -177,8 +177,7 @@ window.emptyCart = () => {
 
 window.payNow = () => {
   if (cart.length > 0) {
-    Swal.fire({
-      // position: 'top-end',
+    Swal.fire({ 
       icon: 'success',
       title: 'Your order is completed',
       showConfirmButton: false,
