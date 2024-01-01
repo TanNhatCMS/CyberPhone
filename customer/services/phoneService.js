@@ -1,25 +1,23 @@
-export class Service {
-  getPhones = async () => {
+export class Services {
+  async fetchData(endpoint, method, data = null) {
     try {
       const res = await axios({
-        url: 'https://65900a3fcbf74b575eca648d.mockapi.io/Products',
-        method: 'GET',
+        url: `https://65900a3fcbf74b575eca648d.mockapi.io/${endpoint}`,
+        method,
+        data,
       });
       return res.data;
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
-  getPhoneById = async (id) => {
-    try {
-      const res = await axios({
-        url: `https://65900a3fcbf74b575eca648d.mockapi.io/Products/${id}`,
-        method: 'GET',
-      });
+  }
 
-      return res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  async getPhones() {
+    return this.fetchData('Products', 'GET');
+  }
+
+  async getPhoneById(id) {
+    return this.fetchData(`Products/${id}`, 'GET');
+  }
+
 }

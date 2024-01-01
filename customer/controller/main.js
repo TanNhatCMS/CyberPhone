@@ -1,105 +1,102 @@
 const getEle = (id) => document.getElementById(id);
 
-import { Service } from '../services/phoneService.js';
+import { Services } from '../services/phoneService.js';
 import { CartItem } from '../model/cartItem.js';
 import { Product } from '../model/product.js';
 
-const service = new Service();
+const service = new Services();
 let cart = [];
-
-const renderList = (phoneList) => {
-  let content = '';
-  phoneList.forEach((ele) => {
-    content += ` <div class="col-lg-3 col-md-6">
-    <div class="card text-black h-100">
-    <div class="content-overlay"></div>
-      <img src=${ele.img} class="card-img" alt="Phone Image" />
-      <div class="content-details fadeIn-top">
-      <h3 class ='pb-5'>Specifications</h3>
-            <div class="d-flex justify-content-start py-1">
-          <span class='text-light'><b>Screen:</b></span>
-          <span class='text-light'>&nbsp ${ele.screen}</span>
-        </div>
-        <div class="d-flex justify-content-start py-1">
-          <span class='text-light'><b>Back Camera:</b> ${ele.backCamera}</span>
-        </div>
-        <div class="d-flex justify-content-start py-1">
-          <span class='text-light'><b>Front Camera:</b> ${ele.frontCamera}</span>
-        </div>
-
-        <p class = 'pt-5'><u>click here for more details</u></p>
+const renderPhoneItem = (phone) => {
+  return ` <div class="col-lg-3 col-md-6">
+  <div class="card text-black h-100">
+  <div class="content-overlay"></div>
+    <img src=${phone.img} class="card-img" alt="Phone Image" />
+    <div class="content-details fadeIn-top">
+    <h3 class ='pb-5'>Specifications</h3>
+          <div class="d-flex justify-content-start py-1">
+        <span class='text-light'><b>Screen:</b></span>
+        <span class='text-light'>&nbsp ${phone.screen}</span>
       </div>
-      <div class="card-body">
-        <div class="text-center">
-          <h5 class="card-title pt-3">${ele.name}</h5>
-          <span class="text-muted mb-2">$${ele.price}</span>
-          <span class="text-danger"><s>$${Number(ele.price) + 300}</s></span>
-        </div>
-        <div class="mt-3 brand-box text-center">
-          <span>${ele.type}</span>
-        </div>
-        <div class="d-flex justify-content-start pt-3">
-          <span><b>Description:</b> ${ele.desc}</span>
-        </div>
-        <div class="d-flex justify-content-between pt-3">
-          <div class="text-warning">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-          </div>
-          <span class = 'text-success'><b>In Stock</b></span>
-        </div>
-        <button type="button" class="btn btn-block w-50" onclick ="btnAddToCart('${ele.id
-      }')">Add to cart</button>
+      <div class="d-flex justify-content-start py-1">
+        <span class='text-light'><b>Back Camera:</b> ${phone.backCamera}</span>
       </div>
+      <div class="d-flex justify-content-start py-1">
+        <span class='text-light'><b>Front Camera:</b> ${phone.frontCamera}</span>
+      </div>
+
+      <p class = 'pt-5'><u>click here for more details</u></p>
     </div>
-  </div>`;
-  });
-  getEle('phoneList').innerHTML = content;
+    <div class="card-body">
+      <div class="text-center">
+        <h5 class="card-title pt-3">${phone.name}</h5>
+        <span class="text-muted mb-2">$${phone.price}</span>
+        <span class="text-danger"><s>$${Number(phone.price) + 300}</s></span>
+      </div>
+      <div class="mt-3 brand-box text-center">
+        <span>${phone.type}</span>
+      </div>
+      <div class="d-flex justify-content-start pt-3">
+        <span><b>Description:</b> ${phone.desc}</span>
+      </div>
+      <div class="d-flex justify-content-between pt-3">
+        <div class="text-warning">
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+        </div>
+        <span class = 'text-success'><b>In Stock</b></span>
+      </div>
+      <button type="button" class="btn btn-block w-50" onclick ="btnAddToCart('${phone.id
+    }')">Add to cart</button>
+    </div>
+  </div>
+</div>`;
 };
-
-const renderCart = (cart) => {
-  let content = '';
-  cart.forEach((ele) => {
-    content += `<div class="product">
+const renderCartItem = (item) => {
+  return `<div class="product">
   <div class="product__1">
     <div class="product__thumbnail">
-      <img src=${ele.product.img} 
+      <img src=${item.product.img} 
         alt="Italian Trulli">
     </div>
     <div class="product__details">
-      <div style="margin-bottom: 8px;"><b>${ele.product.name}</b></div>
-      <div style="font-size: 90%;">Screen: <span class="tertiary">${ele.product.screen
+      <div style="margin-bottom: 8px;"><b>${item.product.name}</b></div>
+      <div style="font-size: 90%;">Screen: <span class="tertiary">${item.product.screen
       }</span></div>
-      <div style="font-size: 90%;">Back Camera: <span class="tertiary">${ele.product.backCamera
+      <div style="font-size: 90%;">Back Camera: <span class="tertiary">${item.product.backCamera
       }</span></div>
-      <div style="font-size: 90%;">Front Camera: <span class="tertiary">${ele.product.frontCamera
+      <div style="font-size: 90%;">Front Camera: <span class="tertiary">${item.product.frontCamera
       }</span></div>
-      <div style="margin-top: 8px;"><a href="#!" onclick ="btnRemove('${ele.product.id
+      <div style="margin-top: 8px;"><a href="#!" onclick ="btnRemove('${item.product.id
       }')">Remove</a></div>
     </div>
   </div>
   <div class="product__2">
     <div class="qty">
       <span><b>Quantity:</b> </span> &nbsp &nbsp
-      <span class="minus bg-dark" onclick ="btnMinus('${ele.product.id}')">-</span>
-      <span class="quantityResult mx-2">${ele.quantity}</span>
-      <span class="plus bg-dark" onclick ="btnAdd('${ele.product.id}')">+</span>
+      <span class="minus bg-dark" onclick ="btnMinus('${item.product.id}')">-</span>
+      <span class="quantityResult mx-2">${item.quantity}</span>
+      <span class="plus bg-dark" onclick ="btnAdd('${item.product.id}')">+</span>
     </div>
-    <div class="product__price"><b>$${ele.quantity * ele.product.price}</b></div>
+    <div class="product__price"><b>$${item.quantity * item.product.price}</b></div>
   </div>
 </div>`;
-  });
+};
+const renderList = (phoneList) => {
+  const content = phoneList.map((phone) => renderPhoneItem(phone)).join('');
+  getEle('phoneList').innerHTML = content;
+};
+
+const renderCart = (cartItems) => {
+  const content = cartItems.map((item) => renderCartItem(item)).join('');
   getEle('cartList').innerHTML = content;
 
-  let cartCount = 0;
-  cart.forEach((ele) => {
-    cartCount += ele.quantity;
-  });
-  const subTotal = calculateSubTotal(cart);
+  const cartCount = cartItems.reduce((total, ele) => total + ele.quantity, 0);
+  const subTotal = calculateSubTotal(cartItems);
   const shipping = subTotal > 0 ? 10 : 0;
+
   getEle('cartCount').innerHTML = cartCount;
   getEle('shipping').innerHTML = '$' + shipping;
   getEle('subTotal').innerHTML = '$' + subTotal;
@@ -107,25 +104,12 @@ const renderCart = (cart) => {
   getEle('priceTotal').innerHTML = '$' + Math.floor(subTotal * 1.1 + shipping);
 };
 
-// hàm tính tổng tiền trong giỏ hàng
-const calculateSubTotal = (cart) => {
-  let subTotal = 0;
-  cart.forEach((ele) => {
-    subTotal += ele.product.price * ele.quantity;
-  });
-  return subTotal;
+const calculateSubTotal = (cartItems) => {
+  return cartItems.reduce((total, ele) => total + ele.product.price * ele.quantity, 0);
 };
 
-// hàm tìm cart item trong giỏ hàng theo id sản phẩm, trả về cartitem
-const findItemById = (cart, id) => {
-  let item;
-  cart.forEach((ele) => {
-    if (ele.product.id == id) {
-      item = ele;
-      return;
-    }
-  });
-  return item;
+const findItemById = (cartItems, id) => {
+  return cartItems.find((ele) => ele.product.id == id);
 };
 
 window.onload = async () => {
@@ -135,7 +119,6 @@ window.onload = async () => {
   renderCart(cart);
 };
 
-//lọc phone theo hãng
 getEle('selectList').onchange = async () => {
   const data = await service.getPhones();
   const selectValue = getEle('selectList').value;
@@ -165,7 +148,6 @@ window.btnAddToCart = async (productId) => {
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-// dấu cộng trong giỏ hàng
 window.btnAdd = (id) => {
   let cartItem = findItemById(cart, id);
   if (cartItem) cartItem.quantity++;
@@ -173,7 +155,6 @@ window.btnAdd = (id) => {
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-// dấu trừ trong giỏ hàng
 window.btnMinus = (id) => {
   let cartItem = findItemById(cart, id);
   if (cartItem) cartItem.quantity--;
@@ -182,21 +163,18 @@ window.btnMinus = (id) => {
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-// xóa sản phẩm khỏi giỏ hàng
 window.btnRemove = (id) => {
   cart = cart.filter((ele) => ele.product.id != id);
   renderCart(cart);
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-// clear giỏ hàng
 window.emptyCart = () => {
   cart = [];
   renderCart(cart);
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
-//Nút thanh toán
 window.payNow = () => {
   if (cart.length > 0) {
     Swal.fire({

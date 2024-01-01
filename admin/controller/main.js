@@ -32,7 +32,6 @@ const renderList = async () => {
     getEle('tablePhone').innerHTML = content;
   } catch (error) {
     console.error(error);
-    // Handle errors appropriately, e.g., display error message
   }
 };
 
@@ -41,7 +40,6 @@ window.onload = async () => {
     await renderList();
   } catch (error) {
     console.error(error);
-    // Handle errors appropriately, e.g., display error message
   }
 };
 
@@ -64,7 +62,6 @@ getEle('btnAddPhone').onclick = async () => {
     CustomModal.alertSuccess('Add phone successfully');
   } catch (error) {
     console.error(error);
-    // Handle errors appropriately, e.g., display error message
   }
 };
 
@@ -78,7 +75,6 @@ window.btnDelete = async (id) => {
     }
   } catch (error) {
     console.error(error);
-    // Handle errors appropriately, e.g., display error message
   }
 };
 
@@ -106,6 +102,5 @@ window.btnEdit = async (id) => {
     };
   } catch (error) {
     console.error(error);
-    // Handle errors appropriately, e.g., display error message
   }
 };

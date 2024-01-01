@@ -54,6 +54,4 @@ export class CustomModal {
       confirmButtonText: 'Confirm',
     });
   }
-
-  // You can add more static methods for other types of alerts if needed
 }

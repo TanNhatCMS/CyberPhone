@@ -3,7 +3,7 @@ export class Validator {
   
     showMessage = (idTB, message = '', isVisible = true) => {
       const element = getEle(idTB);
-      element.innerHTML = isVisible ? message : '&#8205;'; //invisible (to keep distance between forms unchanged)
+      element.innerHTML = isVisible ? message : '&#8205;'; 
       element.style.display = isVisible ? 'block' : 'none';
     };
   
